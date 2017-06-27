@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="250dp" android:minHeight="250dp" android:updatePeriodMillis="86400000"
+    android:minWidth="250dp"
+    android:minHeight="250dp"
+    android:updatePeriodMillis="86400000"
     android:previewImage="@drawable/lte_emm_preview"
-    android:initialLayout="@layout/lte_emm_state_widget" android:resizeMode="horizontal|vertical"
+    android:initialLayout="@layout/lte_emm_state_widget"
+    android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
-    android:initialKeyguardLayout="@layout/lte_emm_state_widget"></appwidget-provider>
+    android:initialKeyguardLayout="@layout/lte_emm_state_widget" />

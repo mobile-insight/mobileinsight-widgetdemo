@@ -32,7 +32,6 @@ public class LteWcdmaTableWidget extends AppWidgetProvider {
     static public String [] states = {"XXX", "XXX", "XXX", "XXX", "XXX", "XXX"}; //LTEESM,LTEEMM,  LTERRC, WCDMAMM, WCDMAGMM, WCDMARRC
 
     static public boolean isonline = true;
-    static public boolean play = true;
     static public boolean running = false;
 
     static public Queue<String[]> state_lst = new LinkedList<>();
@@ -51,45 +50,39 @@ public class LteWcdmaTableWidget extends AppWidgetProvider {
 
         @Override
         protected Integer doInBackground(Integer... vals) {
-
             while (running) {
-                if (play) {
-                    time_before = time_lst.peek();
-                    state_before = state_lst.peek();
-                    if (time_lst.size() > 0) {
-                        time_lst.remove();
-                        state_lst.remove();
-                    }
-                    Log.i(LOG_TAG, "Num of remianed elements in time_lst: " + String.valueOf(time_lst.size()));
-                    while (state_lst.peek() != null && "CONNECTING".equals(state_lst.peek())) {
-                        time_lst.remove();
-                        state_lst.remove();
-                    }
-                    if (time_before != null & time_lst.peek() != null) {
-                        publishProgress(vals);
+                time_before = time_lst.peek();
+                state_before = state_lst.peek();
+                if (time_lst.size() > 0) {
+                    time_lst.remove();
+                    state_lst.remove();
+                }
+                Log.i(LOG_TAG, "Num of remianed elements in time_lst: " + String.valueOf(time_lst.size()));
+                if (time_before != null & time_lst.peek() != null) {
+                    publishProgress(vals);
 
-                        Log.i(LOG_TAG, "update once");
-                        Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
-                        Log.i(LOG_TAG,"Time inter in milisec: " + String.valueOf(time_sleep));
-                        try {
-                            if(time_sleep>60000){
-                                Thread.sleep(500);
-                            }else if( time_sleep < 0){
-                                Thread.sleep(500);
-                            }else{
-                                Thread.sleep(time_sleep);
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                    Log.i(LOG_TAG, "update once");
+                    Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
+                    Log.i(LOG_TAG,"Time inter in milisec: " + String.valueOf(time_sleep));
+                    try {
+                        if(time_sleep>60000){
+                            Thread.sleep(500);
+                        }else if( time_sleep < 0){
+                            Thread.sleep(500);
+                        }else{
+                            Thread.sleep(time_sleep);
                         }
-                    } else {
-                        try {
-                            Thread.sleep(4000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
+
             }
             return 1;
         }
@@ -133,9 +126,9 @@ public class LteWcdmaTableWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        final int N = appWidgetIds.length;
-        for (int i = 0; i < N; i++) {
-            updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
+
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
@@ -152,6 +145,14 @@ public class LteWcdmaTableWidget extends AppWidgetProvider {
                 if (task != null) {
                     task.cancel(true);
                 }
+                lte_esm_state = "XXX";
+                lte_emm_state = "XXX";
+                lte_rrc_state = "XXX";
+                wcdma_mm_state = "XXX";
+                wcdma_gmm_state = "XXX";
+                wcdma_rrc_state = "XXX";
+                state_lst.clear();
+                time_lst.clear();
 
                 Log.i(LOG_TAG, "disabled fom receiver");
             }
@@ -169,11 +170,11 @@ public class LteWcdmaTableWidget extends AppWidgetProvider {
                     onUpdate(context, appWidgetManager, appWidgetIds);
                 }
 
-            } else if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
+            } else if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
 
                 Log.i(LOG_TAG, "started " + intent.getAction());
 
-                if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
+                if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
                     isonline = false;
                     if (task != null) {
                         task.cancel(true);
@@ -181,9 +182,8 @@ public class LteWcdmaTableWidget extends AppWidgetProvider {
                     task = new MyAsynctask(context);
                     task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     running = true;
-                    state_lst.clear();
-                    time_lst.clear();
                 } else {
+                    running = false;
                     if (task != null) {
                         task.cancel(true);
                     }
@@ -194,8 +194,8 @@ public class LteWcdmaTableWidget extends AppWidgetProvider {
                 wcdma_mm_state = "XXX";
                 wcdma_gmm_state = "XXX";
                 wcdma_rrc_state = "XXX";
-
-                play = true;
+                state_lst.clear();
+                time_lst.clear();
 
                 if (appWidgetIds != null && appWidgetIds.length > 0) {
                     onUpdate(context, appWidgetManager, appWidgetIds);

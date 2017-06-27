@@ -18,7 +18,6 @@ public class LteEsmStateWidget extends AppWidgetProvider {
     static public String lte_esm_state = "";
     static public boolean running = false;
     static public boolean isonline = true;
-    static public boolean play = true;
 
     MyAsynctask task = null;
 
@@ -31,9 +30,9 @@ public class LteEsmStateWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        final int N = appWidgetIds.length;
-        for (int i = 0; i < N; i++) {
-            updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
+
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
     public class MyAsynctask extends AsyncTask<Integer, Integer, Integer> {
@@ -45,42 +44,37 @@ public class LteEsmStateWidget extends AppWidgetProvider {
         protected Integer doInBackground(Integer... vals) {
 
             while (running) {
-                if (play) {
-                    time_before = time_lst.peek();
-                    state_before = state_lst.peek();
-                    if (time_lst.size() > 0 )
-                    {
-                        time_lst.remove();
-                        state_lst.remove();
-                    }
-                    Log.i(LOG_TAG, "Num of remained elements in time_lst: "+String.valueOf(time_lst.size()));
-                    while (state_lst.peek() != null && "CONNECTING".equals(state_lst.peek())){
-                        time_lst.remove();
-                        state_lst.remove();
-                    }
-                    if (time_before != null & time_lst.peek()!= null) {
-                        publishProgress(vals);
-                        Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
-                        try {
-                            if(time_sleep>60000){
-                                Thread.sleep(500);
-                            }else if( time_sleep < 0){
-                                Thread.sleep(500);
-                            }else{
-                                Thread.sleep(time_sleep);
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                time_before = time_lst.peek();
+                state_before = state_lst.peek();
+                if (time_lst.size() > 0 )
+                {
+                    time_lst.remove();
+                    state_lst.remove();
+                }
+                Log.i(LOG_TAG, "Num of remained elements in time_lst: "+String.valueOf(time_lst.size()));
+                if (time_before != null & time_lst.peek()!= null) {
+                    publishProgress(vals);
+                    Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
+                    try {
+                        if(time_sleep>60000){
+                            Thread.sleep(500);
+                        }else if( time_sleep < 0){
+                            Thread.sleep(500);
+                        }else{
+                            Thread.sleep(time_sleep);
                         }
-                    }
-                    else {
-                        try {
-                            Thread.sleep(4000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
+                else {
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
             return 1;
         }
@@ -125,6 +119,9 @@ public class LteEsmStateWidget extends AppWidgetProvider {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
         if(intent.getAction().equals("android.appwidget.action.APPWIDGET_DISABLED")){
+            lte_esm_state = "";
+            state_lst.clear();
+            time_lst.clear();
             running = false;
             if(task != null)
             {
@@ -134,14 +131,10 @@ public class LteEsmStateWidget extends AppWidgetProvider {
         }
 
         if(intent.getAction().equals(BROADCAST_COUNTER_ACTION)){
-
             try {
-
                 lte_esm_state = intent.getStringExtra("last_state");
 
-
-                final int N = appWidgetIds.length;
-                for (int i = 0; i < N; i++) {
+                for (int appWidgetId : appWidgetIds) {
                     onUpdate(context, appWidgetManager, appWidgetIds);
                 }
             } catch (NullPointerException e) {
@@ -176,11 +169,11 @@ public class LteEsmStateWidget extends AppWidgetProvider {
  
         }
 
-        else if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
+        else if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
 
             Log.i(LOG_TAG, "started " + intent.getAction());
 
-            if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
+            if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
                 isonline = false;
                 if (task != null) {
                     task.cancel(true);
@@ -188,17 +181,16 @@ public class LteEsmStateWidget extends AppWidgetProvider {
                 task = new MyAsynctask(context);
                 task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 running = true;
-                state_lst.clear();
-                time_lst.clear();
             }
             else{
+                running = false;
                 if (task != null) {
                     task.cancel(true);
                 }
             }
             lte_esm_state = "";
-
-            play = true;
+            state_lst.clear();
+            time_lst.clear();
 
             if (appWidgetIds != null && appWidgetIds.length > 0) {
                 onUpdate(context, appWidgetManager, appWidgetIds);
@@ -215,7 +207,7 @@ public class LteEsmStateWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(),
                 R.layout.lte_esm_state_widget);
         Log.d(LOG_TAG, "Message "+String.valueOf(lte_esm_state));
-        int tx_id = -1;
+        int tx_id;
         switch (lte_esm_state) {
             case "connected" :
                 tx_id = R.drawable.lte_esm_connected;

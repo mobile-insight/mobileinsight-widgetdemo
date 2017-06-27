@@ -16,16 +16,16 @@ public class ExpandableListDataPumpWidget {
         lte_esm_wdiget.add("Show state transition for LTE ESM");
 
         List<String> lte_phy_wdiget = new ArrayList<String>();
-        lte_phy_wdiget.add("Show physical bandwidth and coding scheme");
+        lte_phy_wdiget.add("Show physical bandwidth and coding scheme in last one second");
 
         List<String> lte_rrc_wdiget = new ArrayList<String>();
         lte_rrc_wdiget.add("Show state transition for LTE RRC");
 
         List<String> table_wdiget = new ArrayList<String>();
-        table_wdiget.add("Show state for LTE and WCDMA NAS and RRC");
+        table_wdiget.add("Show state transition in NAS and RRC for both LTE and WCDMA");
 
         List<String> mg_wdiget = new ArrayList<String>();
-        mg_wdiget.add("Show mobility information");
+        mg_wdiget.add("Show mobility information, including handoff comands, mesuarement control information and measurement reports.");
 
         List<String> wcdma_gmm_wdiget = new ArrayList<String>();
         wcdma_gmm_wdiget.add("Show state transition for WCDMA GMM");
@@ -36,7 +36,7 @@ public class ExpandableListDataPumpWidget {
         List<String> wcdma_rrc_wdiget = new ArrayList<String>();
         wcdma_rrc_wdiget.add("Show state transition for WCDMA RRC");
 
-        expandableListDetail.put("LteEmmState Widget", lte_esm_wdiget);
+        expandableListDetail.put("LteEmmState Widget", lte_emm_wdiget);
         expandableListDetail.put("LteEsmState Widget", lte_esm_wdiget);
         expandableListDetail.put("LtePhyBW Widget", lte_phy_wdiget);
         expandableListDetail.put("LteRrcState Widget", lte_rrc_wdiget);

@@ -29,7 +29,7 @@ public class LtePhyWidget extends AppWidgetProvider {
 
     static public String test="0";
     static public String modulation0="";
-    static public String modulation1="";
+//    static public String modulation1=""; // Currently unused
     static public String statistics_qpsk="0";
     static public String statistics_16qam="0";
     static public String statistics_64qam="0";
@@ -44,7 +44,6 @@ public class LtePhyWidget extends AppWidgetProvider {
 
     MyAsynctask task = null;
 
-    static public boolean play = true;
     static public boolean running = false;
     static float number = 0;
 
@@ -56,15 +55,14 @@ public class LtePhyWidget extends AppWidgetProvider {
             for (int i = 1; i < series1Numbers.length; i++)
                 series1Numbers[i]=0;
 
-        if (play && test_lst.peek() != null) {
-            for (int i = 1; i < series1Numbers.length; i++)
-                series1Numbers[i-1] = series1Numbers[i];
+        if (test_lst.peek() != null) {
+            System.arraycopy(series1Numbers, 1, series1Numbers, 0, series1Numbers.length - 1);
 
             test = test_lst.poll();
 
             String [] md_tmp = modulation_lst.poll();
             modulation0 = md_tmp[0];
-            modulation1 = md_tmp[1];
+//            modulation1 = md_tmp[1];
 
             String [] st_tmp = statistics_lst.poll();
             statistics_qpsk = st_tmp[0];
@@ -138,7 +136,7 @@ public class LtePhyWidget extends AppWidgetProvider {
                 float qam16 = Float.parseFloat(statistics_16qam);
                 float qam64 = Float.parseFloat(statistics_64qam);
                 float total = qpsk + qam16 + qam64;
-                if(total!=0){
+                if(total!=0 && number != 0.0){
                     qpsk = 100*qpsk/total;
                     qam16 = 100*qam16/total;
                     qam64 = 100*qam64/total;
@@ -182,6 +180,15 @@ public class LtePhyWidget extends AppWidgetProvider {
 
 
         if(intent.getAction().equals("android.appwidget.action.APPWIDGET_ENABLED")){
+            test="0";
+            modulation0="";
+//            modulation1="";
+            statistics_qpsk="0";
+            statistics_16qam="0";
+            statistics_64qam="0";
+            test_lst.clear();
+            modulation_lst.clear();
+            statistics_lst.clear();
             Log.i(LOG_TAG, "enabled fom receiver");
         }
         if(intent.getAction().equals("android.appwidget.action.APPWIDGET_DISABLED")){
@@ -215,12 +222,12 @@ public class LtePhyWidget extends AppWidgetProvider {
             String statistics_64qam_tmp = intent.getStringExtra("Modulation-64QAM");
             String [] stat_tmp = {statistics_qpsk_tmp, statistics_16qam_tmp, statistics_64qam_tmp};
             statistics_lst.offer(stat_tmp);
-            Log.i(LOG_TAG,statistics_qpsk_tmp+" "+statistics_16qam_tmp+" "+statistics_64qam_tmp);
+//            Log.i(LOG_TAG,statistics_qpsk_tmp+" "+statistics_16qam_tmp+" "+statistics_64qam_tmp);
         }
 
-        else if (appWidgetIds != null && appWidgetIds.length > 0 && (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED"))) {
+        else if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
             Log.i(LOG_TAG, "started");
-            if (task == null) {
+            if (appWidgetIds != null && appWidgetIds.length > 0 && task == null) {
                 task = new MyAsynctask(context);
                 task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 running = true;
@@ -228,7 +235,7 @@ public class LtePhyWidget extends AppWidgetProvider {
 
             test="0";
             modulation0="";
-            modulation1="";
+//            modulation1="";
             statistics_qpsk="0";
             statistics_16qam="0";
             statistics_64qam="0";
@@ -252,13 +259,11 @@ public class LtePhyWidget extends AppWidgetProvider {
         protected Integer doInBackground(Integer... vals) {
 
             while (running) {
-                if (play) {
-                    publishProgress();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                publishProgress();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
             return 1;

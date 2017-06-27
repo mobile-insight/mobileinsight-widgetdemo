@@ -23,7 +23,6 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
     static public String substate = "";
     static public boolean running = false;
     static public boolean isonline = true;
-    static public boolean play = true;
 
     MyAsynctask task = null;
 
@@ -45,58 +44,43 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
 
             while (running) {
                 Log.i(LOG_TAG, "not stopped");
-                if (play) {
-                    time_before = time_lst.peek();
-                    state_before = state_lst.peek();
-                    if (time_lst.size() > 0) {
-                        time_lst.remove();
-                        state_lst.remove();
-                    }
-//                    Log.i(LOG_TAG, "Begin of a loop");
-                    Log.i(LOG_TAG, "Num of remianed elements in time_lst: " + String.valueOf(time_lst.size()));
-                    //Log.i(LOG_TAG,String.valueOf(time_before!=null));
-                    //Log.i(LOG_TAG,String.valueOf(time_lst.peek()!=null));
-                    while (state_lst.peek() != null && "CONNECTING".equals(state_lst.peek())) {
-                        time_lst.remove();
-                        state_lst.remove();
-                    }
-                    if (time_before != null & time_lst.peek() != null) {
-                        publishProgress(vals);
+                time_before = time_lst.peek();
+                state_before = state_lst.peek();
+                if (time_lst.size() > 0) {
+                    time_lst.remove();
+                    state_lst.remove();
+                }
+                Log.i(LOG_TAG, "Num of remianed elements in time_lst: " + String.valueOf(time_lst.size()));
 
-//                        Log.i(LOG_TAG, "update once");
-//                        Log.i(LOG_TAG, "Last time " + time_before);
-//                        Log.i(LOG_TAG, "Current time" + time_lst.peek());
+                if (time_before != null & time_lst.peek() != null) {
+                    publishProgress(vals);
 
-                        Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
-                        Log.i(LOG_TAG,"Time inter in milisec: " + String.valueOf(time_sleep));
-                        try {
-                            if(time_sleep>60000){
-                                Thread.sleep(5000);
-                            }else if( time_sleep < 0){
-                                Thread.sleep(1000);
-                            }else{
-                                Thread.sleep(time_sleep);
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                    Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
+                    Log.i(LOG_TAG,"Time inter in milisec: " + String.valueOf(time_sleep));
+                    try {
+                        if(time_sleep>60000){
+                            Thread.sleep(5000);
+                        }else if( time_sleep < 0){
+                            Thread.sleep(1000);
+                        }else{
+                            Thread.sleep(time_sleep);
                         }
-                    } else {
-                        try {
-                            Thread.sleep(4000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
-//                Log.i(LOG_TAG,"task status: "+String.valueOf(isCancelled()));
             }
             return 1;
         }
 
         public MyAsynctask(Context context) {
-//            this.time_lst = time_lst;
             this.context = context;
-//            Log.i(LOG_TAG, "myasynctask inited");
         }
         @Override
         protected void onProgressUpdate(Integer... values) {
@@ -128,9 +112,9 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        final int N = appWidgetIds.length;
-        for (int i = 0; i < N; i++) {
-            updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
+
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
  
@@ -148,21 +132,19 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
                 if (task != null) {
                     task.cancel(true);
                 }
-
+                wcdma_gmm_state = "";
+                substate = "";
+                state_lst.clear();
+                time_lst.clear();
                 Log.i(LOG_TAG, "disabled fom receiver");
             }
 
             if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals(BROADCAST_COUNTER_ACTION)) {
 
                 wcdma_gmm_state = intent.getStringExtra("last_state").split("\t")[0];
-//            LteWcdmaTableWidget.wcdma_gmm_state = wcdma_gmm_state;
-//            Intent castintent = new Intent();
-//            castintent.setAction(TABLE_BROADCAST_COUNTER_ACTION);
-//            context.sendBroadcast(castintent);
                 substate = intent.getStringExtra("last_state").split("\t")[1];
 
-                final int N = appWidgetIds.length;
-                for (int i = 0; i < N; i++) {
+                for (int appWidgetId : appWidgetIds) {
                     onUpdate(context, appWidgetManager, appWidgetIds);
                 }
             }
@@ -176,7 +158,6 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
 
                 Log.d(LOG_TAG, "WcdmaGmmStateWidget" + " New broadcast message received ".concat(state_tmp));
 
-
                 if (!isonline) {
                     String time_tmp = intent.getStringExtra("timestamp");
                     Log.d(LOG_TAG, "WcdmaGmmStateWidget" + "New broadcast message received ".concat(time_tmp));
@@ -187,10 +168,6 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
                     }
                 } else {
                     wcdma_gmm_state = state_tmp;
-//                LteWcdmaTableWidget.wcdma_gmm_state = wcdma_gmm_state;
-//                Intent castintent = new Intent();
-//                castintent.setAction(TABLE_BROADCAST_COUNTER_ACTION);
-//                context.sendBroadcast(castintent);
                     substate = substate_tmp;
                 }
 
@@ -198,11 +175,11 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
                     onUpdate(context, appWidgetManager, appWidgetIds);
                 }
 
-            } else if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
+            } else if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
 
                 Log.i(LOG_TAG, "started " + intent.getAction());
 
-                if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
+                if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
                     isonline = false;
                     if (task != null) {
                         task.cancel(true);
@@ -211,16 +188,16 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
                     task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     running = true;
                     Log.i(LOG_TAG, "started " + String.valueOf(task));
-                    state_lst.clear();
-                    time_lst.clear();
                 } else {
+                    running = false;
                     if (task != null) {
                         task.cancel(true);
                     }
                 }
                 wcdma_gmm_state = "";
                 substate = "";
-                play = true;
+                state_lst.clear();
+                time_lst.clear();
 
                 if (appWidgetIds != null && appWidgetIds.length > 0) {
                     onUpdate(context, appWidgetManager, appWidgetIds);
@@ -236,7 +213,6 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
  
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         //Todo...
         RemoteViews views = new RemoteViews(context.getPackageName(),
@@ -245,7 +221,7 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
         Log.d(LOG_TAG, "Update Message " + String.valueOf(substate));
         views.setTextViewText(R.id.textView2, substate);
  
-        int tx_id = -1;
+        int tx_id;
         switch (wcdma_gmm_state) {
             case "GMM_REGISTERED" :
                 tx_id = R.drawable.wcdma_gmm_registered;

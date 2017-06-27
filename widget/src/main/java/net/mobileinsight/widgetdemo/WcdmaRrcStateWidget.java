@@ -47,9 +47,9 @@ public class WcdmaRrcStateWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         // There may be multiple widgets active, so update all of them
-        final int N = appWidgetIds.length;
-        for (int i = 0; i < N; i++) {
-            updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
+
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
@@ -158,6 +158,13 @@ public class WcdmaRrcStateWidget extends AppWidgetProvider {
             {
                 task.cancel(true);
             }
+            wcdma_rrc_state = ""; //to receive state
+            next_state = ""; // next state to show in the figure
+            timeinfo = ""; // current time infomation
+            time_init = ""; // init time
+            state_before = "";
+            state_lst.clear();
+            time_lst.clear();
             Log.i(LOG_TAG, "disabled fom receiver");
         }
 
@@ -179,8 +186,8 @@ public class WcdmaRrcStateWidget extends AppWidgetProvider {
                 time_cur = Timestamp.valueOf(timeinfo).getTime();
             }
 
-            final int N = appWidgetIds.length;
-            for (int i = 0; i < N; i++) {
+
+            for (int appWidgetId : appWidgetIds) {
                 onUpdate(context, appWidgetManager, appWidgetIds);
             }
         }
@@ -206,26 +213,24 @@ public class WcdmaRrcStateWidget extends AppWidgetProvider {
             }
         }
 
-        else if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
+        else if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
 
             Log.i(LOG_TAG, "started");
 
-            if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
+            if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
                 isonline = false;
                 Log.i(LOG_TAG, String.valueOf(task));
                 if (task != null) {
-
                     task.cancel(true);
                 }
                 task = new MyAsynctask(context);
                 task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 Log.i(LOG_TAG, String.valueOf(task));
                 running = true;
-                state_lst.clear();
-                time_lst.clear();
             }
             else{
                 if (task != null) {
+                    running = false;
                     task.cancel(true);
                 }
             }
@@ -234,6 +239,8 @@ public class WcdmaRrcStateWidget extends AppWidgetProvider {
             timeinfo = ""; // current time infomation
             time_init = ""; // init time
             state_before = "";
+            state_lst.clear();
+            time_lst.clear();
 
             //0-DISCONNECTED; 1-CELL_DCH; 2-URA_PCH; 3-CELL_FACH; 4-CELL_PCH
             for (int i = 0; i < time_for_state.length; i++) {
@@ -404,16 +411,16 @@ public class WcdmaRrcStateWidget extends AppWidgetProvider {
                     views.setImageViewResource(R.id.imageView_WCDMA, tx_id);
 
                     if (time_all > 0) {
-                        views.setTextViewText(R.id.textView1, "CELL_DCH: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[1] / 1000)).toString()).concat("s(").
-                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[1] / time_all)).toString()).concat(")"));
-                        views.setTextViewText(R.id.textView2, "URA_PCH: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[2] / 1000)).toString()).concat("s(").
-                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[2] / time_all)).toString()).concat(")"));
-                        views.setTextViewText(R.id.textView3, "CELL_FACH: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[3] / 1000)).toString()).concat("s(").
-                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[3] / time_all)).toString()).concat(")"));
-                        views.setTextViewText(R.id.textView4, "CELL_PCH: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[4] / 1000)).toString()).concat("s(").
-                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[4] / time_all)).toString()).concat(")"));
-                        views.setTextViewText(R.id.textView0, "DISCONN: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[0] / 1000)).toString()).concat("s(").
-                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[0] / time_all)).toString()).concat(")"));
+                        views.setTextViewText(R.id.textView1, "CELL_DCH: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[1] / 1000))).concat("s(").
+                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[1] / time_all))).concat(")"));
+                        views.setTextViewText(R.id.textView2, "URA_PCH: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[2] / 1000))).concat("s(").
+                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[2] / time_all))).concat(")"));
+                        views.setTextViewText(R.id.textView3, "CELL_FACH: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[3] / 1000))).concat("s(").
+                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[3] / time_all))).concat(")"));
+                        views.setTextViewText(R.id.textView4, "CELL_PCH: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[4] / 1000))).concat("s(").
+                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[4] / time_all))).concat(")"));
+                        views.setTextViewText(R.id.textView0, "DISCONN: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[0] / 1000))).concat("s(").
+                                concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[0] / time_all))).concat(")"));
                     }
                 }
             }

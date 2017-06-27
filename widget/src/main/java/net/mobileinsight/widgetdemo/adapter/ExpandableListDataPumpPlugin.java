@@ -10,25 +10,25 @@ public class ExpandableListDataPumpPlugin {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
         List<String> phy_online_plugin = new ArrayList<String>();
-        phy_online_plugin.add("work with LtePhyBW Widget online");
+        phy_online_plugin.add("Demo-PHY-online plugin works with LtePhyBW widget online.");
 
         List<String> phy_offline_plugin = new ArrayList<String>();
-        phy_offline_plugin.add("work with LtePhyBW Widget offline");
+        phy_offline_plugin.add("Demo-PHY-offline plugin works with LtePhyBW widget offline");
 
         List<String> mg_online_plugin = new ArrayList<String>();
-        mg_online_plugin.add("work with MobilityGraph Widget online");
+        mg_online_plugin.add("Demo-Mobilgraph-online plugin works with MobilityGraph widget online");
 
         List<String> mg_offline_plugin = new ArrayList<String>();
-        mg_offline_plugin.add("work with MobilityGraph Widget offline");
+        mg_offline_plugin.add("Demo-Mobilgraph-offline plugin works with MobilityGraph widget offline");
 
         List<String> lterrc_offline_plugin = new ArrayList<String>();
-        lterrc_offline_plugin.add("work with LteRrcState Widget offline");
+        lterrc_offline_plugin.add("Demo-RRC-4G-offline plugin works with LteRrcState widget offline");
 
         List<String> wcdmarrc_offline_plugin = new ArrayList<String>();
-        wcdmarrc_offline_plugin.add("work with WcdmaRrcState Widget offline");
+        wcdmarrc_offline_plugin.add("Demo-RRC-3G-offline plugin works with WcdmaRrcState widget offline");
 
         List<String> nas_offline_plugin = new ArrayList<String>();
-        nas_offline_plugin.add("work with NAS related Widget offline");
+        nas_offline_plugin.add("Demo-NAS-offline plugin works with NAS and UTMS related Widget offline. It could work with LteEsmState, LteEmmState, WcdmaGmmState, WcdmaMmState widgets.");
 
 //      TODO: add plugin introduction for NasAnalysis (work with NAS realted Widget online)
 //      TODO: and RrcAnalysis (work with RRC related Widget online)

@@ -27,14 +27,13 @@ import java.text.Format;
 import java.text.ParsePosition;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
-import java.util.Timer;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class MobilityGraphWidget extends AppWidgetProvider {
-    Timer timer = new Timer();
     static Number[] series1Numbers = {5.5, 5.5, 5.5, 5.5, 5.5, 5.5};
     static int count3g = 4;
     static int count4g = 4;
@@ -59,11 +58,7 @@ public class MobilityGraphWidget extends AppWidgetProvider {
     static long time_latest = 0;
     static String mtype = "";
 
-    static public boolean play = true;
-    static public boolean enabled = false;
     static public boolean running = false;
-    static public boolean isonline = false;
-
 
     static Queue<String[]> msg_lst = new LinkedList<String[]>();
     static Queue<String> time_lst = new LinkedList<String>();
@@ -78,106 +73,108 @@ public class MobilityGraphWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(final Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        if (show_label == -1 & play) {
+        if (show_label == -1) {
             System.arraycopy(series1Numbers, 1, series1Numbers, 0, series1Numbers.length - 1);
             value = 11;
 
-            if (bs3g4g.equals("WCDMA")) {
-                if (count3g >= 0) {
-                    for (int i = 0; i < 5; i++) {
-                        if (bs3g[i].equals(newbs)) {
-                            value = i;
-                        }
-                    }
-                    if (value == 11) {
-                        bs3g[count3g] = newbs;
-                        number = count3g + 1;
-                        dd3g[count3g] = 5;
-                    } else {
-                        number = value + 1;
-                        dd3g[value] = 5;
-                    }
-                    count3g -= 1;
-                    for (int i = 0; i < 5; i++) {
-                        dd3g[i] -= 1;
-                    }
-                } else {
-                    for (int i = 0; i < 5; i++) {
-                        if (bs3g[i].equals(newbs)) {
-                            value = i;
-                        }
-                    }
-                    if (value == 11) {
+            switch (bs3g4g) {
+                case "WCDMA":
+                    if (count3g >= 0) {
                         for (int i = 0; i < 5; i++) {
-                            if (dd3g[i] <= value) {
-                                value = dd3g[i];
-                                new_row_to_place = i;
+                            if (bs3g[i].equals(newbs)) {
+                                value = i;
                             }
                         }
-                        dd3g[new_row_to_place] = 5;
-                        number = new_row_to_place + 1;
-                        bs3g[new_row_to_place] = newbs;
-                    } else {
-                        number = value + 1;
-                        dd3g[value] = 5;
-                    }
-                    count3g -= 1;
-                    for (int i = 0; i < 5; i++) {
-                        dd3g[i] -= 1;
-                    }
-                }
-                series1Numbers[series1Numbers.length - 1] = number;
-                series1Numbers[series1Numbers.length - 2] = number;
-            }
-            else if (bs3g4g.equals("LTE")) {
-                if (count4g >= 0) {
-                    for (int i = 0; i < 5; i++) {
-                        if (bs4g[i].equals(newbs)) {
-                            value = i;
+                        if (value == 11) {
+                            bs3g[count3g] = newbs;
+                            number = count3g + 1;
+                            dd3g[count3g] = 5;
+                        } else {
+                            number = value + 1;
+                            dd3g[value] = 5;
                         }
-                    }
-                    if (value == 11) {
-                        bs4g[count4g] = newbs;
-                        number = count4g + 6;
-                        dd4g[count4g] = 5;
-                    } else {
-                        number = value + 6;
-                        dd4g[value] = 5;
-                    }
-                    count4g -= 1;
-                    for (int i = 0; i < 5; i++) {
-                        dd4g[i] -= 1;
-                    }
-                } else {
-                    for (int i = 0; i < 5; i++) {
-                        if (bs4g[i].equals(newbs)) {
-                            value = i;
-                        }
-                    }
-                    if (value == 11) {
+                        count3g -= 1;
                         for (int i = 0; i < 5; i++) {
-                            if (dd4g[i] <= value) {
-                                value = dd4g[i];
-                                new_row_to_place = i;
+                            dd3g[i] -= 1;
+                        }
+                    } else {
+                        for (int i = 0; i < 5; i++) {
+                            if (bs3g[i].equals(newbs)) {
+                                value = i;
                             }
                         }
-                        dd4g[new_row_to_place] = 5;
-                        number = new_row_to_place + 6;
-                        bs4g[new_row_to_place] = newbs;
+                        if (value == 11) {
+                            for (int i = 0; i < 5; i++) {
+                                if (dd3g[i] <= value) {
+                                    value = dd3g[i];
+                                    new_row_to_place = i;
+                                }
+                            }
+                            dd3g[new_row_to_place] = 5;
+                            number = new_row_to_place + 1;
+                            bs3g[new_row_to_place] = newbs;
+                        } else {
+                            number = value + 1;
+                            dd3g[value] = 5;
+                        }
+                        count3g -= 1;
+                        for (int i = 0; i < 5; i++) {
+                            dd3g[i] -= 1;
+                        }
+                    }
+                    series1Numbers[series1Numbers.length - 1] = number;
+                    series1Numbers[series1Numbers.length - 2] = number;
+                    break;
+                case "LTE":
+                    if (count4g >= 0) {
+                        for (int i = 0; i < 5; i++) {
+                            if (bs4g[i].equals(newbs)) {
+                                value = i;
+                            }
+                        }
+                        if (value == 11) {
+                            bs4g[count4g] = newbs;
+                            number = count4g + 6;
+                            dd4g[count4g] = 5;
+                        } else {
+                            number = value + 6;
+                            dd4g[value] = 5;
+                        }
+                        count4g -= 1;
+                        for (int i = 0; i < 5; i++) {
+                            dd4g[i] -= 1;
+                        }
                     } else {
-                        number = value + 6;
-                        dd4g[value] = 5;
+                        for (int i = 0; i < 5; i++) {
+                            if (bs4g[i].equals(newbs)) {
+                                value = i;
+                            }
+                        }
+                        if (value == 11) {
+                            for (int i = 0; i < 5; i++) {
+                                if (dd4g[i] <= value) {
+                                    value = dd4g[i];
+                                    new_row_to_place = i;
+                                }
+                            }
+                            dd4g[new_row_to_place] = 5;
+                            number = new_row_to_place + 6;
+                            bs4g[new_row_to_place] = newbs;
+                        } else {
+                            number = value + 6;
+                            dd4g[value] = 5;
+                        }
+                        count4g -= 1;
+                        for (int i = 0; i < 5; i++) {
+                            dd4g[i] -= 1;
+                        }
                     }
-                    count4g -= 1;
-                    for (int i = 0; i < 5; i++) {
-                        dd4g[i] -= 1;
-                    }
-                }
-                series1Numbers[series1Numbers.length - 1] = number;
-                series1Numbers[series1Numbers.length - 2] = number;
-            }
-            else {
-                series1Numbers[series1Numbers.length - 1] = series1Numbers[series1Numbers.length - 2];
+                    series1Numbers[series1Numbers.length - 1] = number;
+                    series1Numbers[series1Numbers.length - 2] = number;
+                    break;
+                default:
+                    series1Numbers[series1Numbers.length - 1] = series1Numbers[series1Numbers.length - 2];
+                    break;
             }
         }
 
@@ -218,7 +215,6 @@ public class MobilityGraphWidget extends AppWidgetProvider {
             SimpleXYSeries Point_HANDOFF = new SimpleXYSeries("Handoff cmd");
             SimpleXYSeries Point_MEAS_CTRL = new SimpleXYSeries("Meas control");
             SimpleXYSeries Point_MEAS_REPORT = new SimpleXYSeries("Meas report");
-            SimpleXYSeries Transparent_Point = new SimpleXYSeries("Mobility events");
 
             for (int i  = 0; i < Mngt_Type.length; i++) {
                 if (Mngt_Type[i].equals("HANDOFF")) {
@@ -357,15 +353,13 @@ public class MobilityGraphWidget extends AppWidgetProvider {
 
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.mobility_graph_widget);
 
-            if (play) {
-                if (show_label == -1) {
-                    rv.setTextViewText(R.id.label, label_onUpdate);
-                }
-                else {
-                    rv.setTextViewText(R.id.label, label_save[show_label]);
-                }
-                rv.setBitmap(R.id.imageView, "setImageBitmap", bmp);
+            if (show_label == -1) {
+                rv.setTextViewText(R.id.label, label_onUpdate);
             }
+            else {
+                rv.setTextViewText(R.id.label, label_save[show_label]);
+            }
+            rv.setBitmap(R.id.imageView, "setImageBitmap", bmp);
 
             appWidgetManager.updateAppWidget(widgetId, rv);
         }
@@ -386,42 +380,41 @@ public class MobilityGraphWidget extends AppWidgetProvider {
         protected Integer doInBackground(Integer... vals) {
 
             while (running) {
-                if (play) {
-                    time_before = time_lst.peek();
-                    msg_before = msg_lst.peek();
-                    mtype_before = MType_lst.peek();
-                    if (time_lst.size() > 0 )
-                    {
-                        time_lst.remove();
-                        msg_lst.remove();
-                        MType_lst.remove();
-                    }
-                    Log.i(LOG_TAG, "Num of remianed elements in time_lst: "+String.valueOf(time_lst.size()));
-                    if (time_before != null & time_lst.peek()!= null) {
-                        publishProgress(vals);
+                time_before = time_lst.peek();
+                msg_before = msg_lst.peek();
+                mtype_before = MType_lst.peek();
+                if (time_lst.size() > 0 )
+                {
+                    time_lst.remove();
+                    msg_lst.remove();
+                    MType_lst.remove();
+                }
+                Log.i(LOG_TAG, "Num of remianed elements in time_lst: "+String.valueOf(time_lst.size()));
+                if (time_before != null & time_lst.peek()!= null) {
+                    publishProgress(vals);
 
-                        Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
-                        Log.i(LOG_TAG,"Time inter in milisec: " + String.valueOf(time_sleep));
-                        try {
-                            if(time_sleep>60000){
-                                Thread.sleep(500);
-                            }else if( time_sleep < 0){
-                                Thread.sleep(500);
-                            }else{
-                                Thread.sleep(time_sleep);
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                    Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
+                    Log.i(LOG_TAG,"Time inter in milisec: " + String.valueOf(time_sleep));
+                    try {
+                        if(time_sleep>60000){
+                            Thread.sleep(500);
+                        }else if( time_sleep < 0){
+                            Thread.sleep(500);
+                        }else{
+                            Thread.sleep(time_sleep);
                         }
-                    }
-                    else {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
+                else {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
             return 1;
         }
@@ -465,7 +458,7 @@ public class MobilityGraphWidget extends AppWidgetProvider {
             {
                 task.cancel(true);
             }
-
+            clearData();
             Log.i(LOG_TAG, "disabled fom receiver");
         }
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context.getApplicationContext());
@@ -488,17 +481,19 @@ public class MobilityGraphWidget extends AppWidgetProvider {
             Mngt_Type[Mngt_Type.length - 1] = mtype;
             Log.i("mtype", Mngt_Type[0]+","+Mngt_Type[1]+","+Mngt_Type[2]+","+Mngt_Type[3]);
 
-            if (mtype.equals("HANDOFF")) {
-                label_onClick = "Handoff to " + msg1;
-                label_onUpdate = label_onClick;
-            }
-            else if (mtype.equals("MEAS_CTRL")) {
-                label_onClick = msg0;
-                label_onUpdate = "Measurement Control";
-            }
-            else if (mtype.equals("MEAS_REPORT")) {
-                label_onClick = msg0 + " " + msg1;
-                label_onUpdate = label_onClick;
+            switch (mtype) {
+                case "HANDOFF":
+                    label_onClick = "Handoff to " + msg1;
+                    label_onUpdate = label_onClick;
+                    break;
+                case "MEAS_CTRL":
+                    label_onClick = msg0;
+                    label_onUpdate = "Measurement Control";
+                    break;
+                case "MEAS_REPORT":
+                    label_onClick = msg0 + " " + msg1;
+                    label_onUpdate = label_onClick;
+                    break;
             }
 
             System.arraycopy(label_save, 1, label_save,0, label_save.length - 1);
@@ -507,7 +502,7 @@ public class MobilityGraphWidget extends AppWidgetProvider {
             bs3g4g = msg0;
             newbs = msg1;
 
-            if (timeinfo != "") {
+            if (!Objects.equals(timeinfo, "")) {
                 time_latest = Timestamp.valueOf(timeinfo).getTime();
             }
 
@@ -518,23 +513,23 @@ public class MobilityGraphWidget extends AppWidgetProvider {
             System.arraycopy(time_cur, 1, time_cur, 0, time_cur.length - 1);
             time_cur[time_cur.length - 1] = time_latest - time_start;
 
-            final int N = appWidgetIds.length;
-            for (int i = 0; i < N; i++) {
+
+            for (int appWidgetId : appWidgetIds) {
                 onUpdate(context, appWidgetManager, appWidgetIds);
             }
         }
 
-        else if (appWidgetIds != null && appWidgetIds.length > 0 && (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED"))) {
-            if (intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
-                isonline = true;
-            }
-
+        else if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
+            // If there are widgets on the home screen, cancel the running task and run a new one
             if (task != null) {
                 task.cancel(true);
             }
-            task = new MyAsynctask(context);
-            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            running = true;
+            if (appWidgetIds != null && appWidgetIds.length > 0){
+
+                task = new MyAsynctask(context);
+                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                running = true;
+            }
 
             msg_lst.clear();
             time_lst.clear();
@@ -544,45 +539,7 @@ public class MobilityGraphWidget extends AppWidgetProvider {
                 series1Numbers[i] = 5.5;
             }
 
-            count3g = 4;
-            count4g = 4;
-            number = 0;
-            value = 0;
-
-            for (int i = 0; i < dd3g.length; i++) {
-                dd3g[i] = 0;
-                dd4g[i] = 0;
-            }
-
-            bs3g4g = "";
-            new_row_to_place = 0;
-
-            for (int i = 0; i < bs3g.length; i++) {
-                bs3g[i] = "";
-                bs4g[i] = "";
-            }
-
-            newbs = "";
-            label_onUpdate = "";
-            label_onClick = "";
-            show_label = -1;
-
-            for (int i = 0; i < label_save.length; i++) {
-                label_save[i] = "";
-                Mngt_Type[i] = "";
-            }
-
-            for (int i = 0; i < time_cur.length; i++) {
-                time_cur[i] = 0;
-            }
-
-            timeinfo = "";
-            time_start = 0;
-            time_latest = 0;
-            mtype = "";
-
-            play = true;
-            enabled = false;
+            clearData();
         }
 
         if(appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.MobilityMngt.HANDOFF")){
@@ -641,5 +598,44 @@ public class MobilityGraphWidget extends AppWidgetProvider {
         if (appWidgetIds != null && appWidgetIds.length > 0) {
             onUpdate(context, appWidgetManager, appWidgetIds);
         }
+    }
+
+    public void clearData(){
+        count3g = 4;
+        count4g = 4;
+        number = 0;
+        value = 0;
+
+        for (int i = 0; i < dd3g.length; i++) {
+            dd3g[i] = 0;
+            dd4g[i] = 0;
+        }
+
+        bs3g4g = "";
+        new_row_to_place = 0;
+
+        for (int i = 0; i < bs3g.length; i++) {
+            bs3g[i] = "";
+            bs4g[i] = "";
+        }
+
+        newbs = "";
+        label_onUpdate = "";
+        label_onClick = "";
+        show_label = -1;
+
+        for (int i = 0; i < label_save.length; i++) {
+            label_save[i] = "";
+            Mngt_Type[i] = "";
+        }
+
+        for (int i = 0; i < time_cur.length; i++) {
+            time_cur[i] = 0;
+        }
+
+        timeinfo = "";
+        time_start = 0;
+        time_latest = 0;
+        mtype = "";
     }
 }

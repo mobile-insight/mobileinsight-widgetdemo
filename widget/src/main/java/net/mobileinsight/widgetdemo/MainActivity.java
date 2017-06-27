@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.app_name);
 
         mContext = getApplicationContext();
 
@@ -116,11 +117,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 
     public void copyFilesAssets(Context context, String oldPath, String newPath) {
@@ -143,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     InputStream is = context.getAssets().open(oldPath);
                     FileOutputStream fos = new FileOutputStream(file);
                     byte[] buffer = new byte[1024];
-                    int byteCount=0;
+                    int byteCount;
                     while((byteCount=is.read(buffer))!=-1) {
                         fos.write(buffer, 0, byteCount);
                     }

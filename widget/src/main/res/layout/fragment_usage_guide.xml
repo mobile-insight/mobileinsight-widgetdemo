@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Step 1: Press and hold any empty space on the home screen;"
+                android:text="1: Press and hold any empty space on the home screen."
                 style="@style/TextAppearance.ItemExample"
                 />
 
@@ -52,7 +52,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Step 2: Choose widgets and go to the list of MI_Widget_demo;"
+                android:text="2: Choose widgets and go to the list of MI_Widget_demo."
                 style="@style/TextAppearance.ItemExample"
                 />
 
@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Step 3: Drag Android widgets to home screen;"
+                android:text="3: Drag Android widgets to home screen."
                 style="@style/TextAppearance.ItemExample"
                 />
 
@@ -70,7 +70,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Step 4: Run MobileInsight and corresponding demo plugin;"
+                android:text="4: Run MobileInsight and corresponding demo plugin."
                 style="@style/TextAppearance.ItemExample"
                 />
 
@@ -79,7 +79,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Step 5: Go back to home screen. The widget should update results."
+                android:text="5: Go back to home screen. The widget should update results."
                 style="@style/TextAppearance.ItemExample"
                 />
         </LinearLayout>

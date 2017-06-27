@@ -44,9 +44,8 @@ public class LteRrcStateWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
 
-        final int N = appWidgetIds.length;
-        for (int i = 0; i < N; i++) {
-            updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
@@ -66,66 +65,65 @@ public class LteRrcStateWidget extends AppWidgetProvider {
         protected Integer doInBackground(Integer... vals) {
 
             while (running) {
-                if (play) {
-                    time_before = time_lst.peek();
+                time_before = time_lst.peek();
+                if (time_lst.size() > 0 )
+                {
+                    state_before = state_lst.peek();
+                    time_lst.remove();
+                    state_lst.remove();
+                }
+                while (time_before != null && time_lst.peek() != null && time_before.equals(time_lst.peek())){
+                    state_before = state_lst.peek();
+                    time_lst.remove();
+                    state_lst.remove();
+                }
+                Log.i(LOG_TAG, "Num of remianed elements in time_lst: "+String.valueOf(time_lst.size()));
+                if (time_before != null && time_lst.peek()!= null) {
+                    time_now = time_lst.peek();
+                    state_now = state_lst.peek();
                     if (time_lst.size() > 0 )
                     {
-                        state_before = state_lst.peek();
                         time_lst.remove();
                         state_lst.remove();
                     }
-                    while (time_before != null && time_lst.peek() != null && time_before.equals(time_lst.peek())){
-                        state_before = state_lst.peek();
-                        time_lst.remove();
-                        state_lst.remove();
-                    }
-                    Log.i(LOG_TAG, "Num of remianed elements in time_lst: "+String.valueOf(time_lst.size()));
-                    if (time_before != null && time_lst.peek()!= null) {
-                        time_now = time_lst.peek();
+                    while (time_now != null && time_lst.peek() != null && time_now.equals(time_lst.peek())){
                         state_now = state_lst.peek();
-                        if (time_lst.size() > 0 )
-                        {
-                            time_lst.remove();
-                            state_lst.remove();
-                        }
-                        while (time_now != null && time_lst.peek() != null && time_now.equals(time_lst.peek())){
-                            state_now = state_lst.peek();
-                            time_lst.remove();
-                            state_lst.remove();
-                        }
-                        try {
-                            time_lst.putFirst(time_now);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            state_lst.putFirst(state_now);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        publishProgress(vals);
-
-                        Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
-                        try {
-                            if(time_sleep>60000){
-                                Thread.sleep(500);
-                            }else if( time_sleep < 0){
-                                Thread.sleep(500);
-                            }else{
-                                Thread.sleep(time_sleep);
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        time_lst.remove();
+                        state_lst.remove();
                     }
-                    else {
-                        try {
-                            Thread.sleep(4000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                    try {
+                        time_lst.putFirst(time_now);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        state_lst.putFirst(state_now);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    publishProgress(vals);
+
+                    Long time_sleep = Timestamp.valueOf(time_lst.peek()).getTime() - Timestamp.valueOf(time_before).getTime();
+                    try {
+                        if(time_sleep>60000){
+                            Thread.sleep(500);
+                        }else if( time_sleep < 0){
+                            Thread.sleep(500);
+                        }else{
+                            Thread.sleep(time_sleep);
                         }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
+                else {
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
             return 1;
         }
@@ -172,12 +170,12 @@ public class LteRrcStateWidget extends AppWidgetProvider {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
         if(intent.getAction().equals("android.appwidget.action.APPWIDGET_ENABLED")){
-            if (task != null) {
-                task.cancel(true);
-            }
-            task = new MyAsynctask(context);
-            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            running = true;
+//            if (task != null) {
+//                task.cancel(true);
+//            }
+//            task = new MyAsynctask(context);
+//            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            running = true;
             Log.i(LOG_TAG, "enabled fom receiver");
         }
 
@@ -187,6 +185,20 @@ public class LteRrcStateWidget extends AppWidgetProvider {
             {
                 task.cancel(true);
             }
+
+            lte_rrc_state = "";
+            next_state = ""; // next state to show in the figure
+            timeinfo = ""; // current time infomation
+            time_init = "";
+            for (int i = 0; i < time_for_state.length; i++) {
+                time_for_state[i] = 0;
+            }
+            time_all = 0;
+            time_last = 0;
+            time_cur = 0;
+
+            state_lst.clear();
+            time_lst.clear();
 
             Log.i(LOG_TAG, "disabled fom receiver");
         }
@@ -221,8 +233,8 @@ public class LteRrcStateWidget extends AppWidgetProvider {
                     timeinfo = intent.getStringExtra("Timestamp");
                     time_last = time_cur;
                     time_cur = Timestamp.valueOf(timeinfo).getTime();
-                    Log.i("Received Time: ", LOG_TAG + received_time);
-                    Log.i("Received State: ", LOG_TAG + received_state);
+                    Log.i(LOG_TAG, "Received Time: " + received_time);
+                    Log.i(LOG_TAG, "Received State: " + received_state);
 
                     if (appWidgetIds != null && appWidgetIds.length > 0) {
                         onUpdate(context, appWidgetManager, appWidgetIds);
@@ -231,14 +243,14 @@ public class LteRrcStateWidget extends AppWidgetProvider {
                 else{
                     state_lst.offer(received_state);
                     time_lst.offer(received_time);
-                    Log.i("Received Time: ", LOG_TAG + received_time);
-                    Log.i("Received State: ", LOG_TAG + received_state);
+                    Log.i(LOG_TAG, "Received Time: " + received_time);
+                    Log.i(LOG_TAG, "Received State: " + received_state);
                 }
             }
         }
 
-        else if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
-            if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
+        else if (intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED") || intent.getAction().equals("MobileInsight.OnlineMonitor.STARTED")) {
+            if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.OfflineReplayer.STARTED")) {
                 isonline = false;
                 if (task != null) {
                     task.cancel(true);
@@ -248,15 +260,12 @@ public class LteRrcStateWidget extends AppWidgetProvider {
                 running = true;
                 Log.i(LOG_TAG, "enabled fom receiver");
 
-                state_lst.clear();
-                time_lst.clear();
             }
             else{
+                running = false;
                 if (task != null) {
                     task.cancel(true);
                 }
-                next_state = intent.getStringExtra("DRX state");
-                timeinfo = intent.getStringExtra("Timestamp");
             }
 
             Log.i(LOG_TAG, "started");
@@ -272,8 +281,8 @@ public class LteRrcStateWidget extends AppWidgetProvider {
             time_last = 0;
             time_cur = 0;
 
-            play = true;
-
+            state_lst.clear();
+            time_lst.clear();
 
             if (appWidgetIds != null && appWidgetIds.length > 0) {
                 onUpdate(context, appWidgetManager, appWidgetIds);
@@ -400,20 +409,18 @@ public class LteRrcStateWidget extends AppWidgetProvider {
 
 
             else {
-                views.setTextViewText(R.id.textView0, "IDLE: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[0] / 1000)).toString()).concat("s(").
-                        concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[0] / time_all)).toString()).concat(")"));
+                views.setTextViewText(R.id.textView0, "IDLE: ".concat(new DecimalFormat("#.##").format(Double.valueOf((double) time_for_state[0] / 1000))).concat("s(").
+                        concat(new DecimalFormat("#.##%").format(Double.valueOf((double) time_for_state[0] / time_all))).concat(")"));
 
-                views.setTextViewText(R.id.textView2, "ShortDRX: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[2] / 1000)).toString()).concat("s(").
-                        concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[2] / time_all)).toString()).concat(")"));
-                views.setTextViewText(R.id.textView3, "LongDRX: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[3] / 1000)).toString()).concat("s(").
-                        concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[3] / time_all)).toString()).concat(")"));
-                views.setTextViewText(R.id.textView1, "CRX: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[1] / 1000)).toString()).concat("s(").
-                        concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[1] / time_all)).toString()).concat(")"));
+                views.setTextViewText(R.id.textView2, "ShortDRX: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[2] / 1000))).concat("s(").
+                        concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[2] / time_all))).concat(")"));
+                views.setTextViewText(R.id.textView3, "LongDRX: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[3] / 1000))).concat("s(").
+                        concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[3] / time_all))).concat(")"));
+                views.setTextViewText(R.id.textView1, "CRX: ".concat(new DecimalFormat("#.##").format(new Double((double) time_for_state[1] / 1000))).concat("s(").
+                        concat(new DecimalFormat("#.##%").format(new Double((double) time_for_state[1] / time_all))).concat(")"));
 
                 if(tx_id!=-1){
                     views.setImageViewResource(R.id.imageView_LTE, tx_id);
-                }
-                else{
                 }
             }
 
