@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin" android:background="#00000000"
+    android:orientation= "vertical" android:clickable="true">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:layout_above="@+id/label"
+        android:layout_marginTop="34dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/label"
+        android:textSize="16sp"
+        android:lines="2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"/>
+
+
+
+    <!--<Button-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:id="@+id/Pause"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginStart="200dp"-->
+        <!--android:layout_marginTop="0dp"-->
+        <!--android:text="Pause"/>-->
+
+    <!--<com.androidplot.xy.XYPlot-->
+        <!--android-->
+
+    <!--<Button-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="296dp"-->
+        <!--android:id="@+id/line1"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginStart="134dp"-->
+        <!--android:layout_marginTop="92dp"-->
+        <!--android:background="@color/ap_transparent"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="296dp"-->
+        <!--android:id="@+id/line2"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginStart="191dp"-->
+        <!--android:layout_marginTop="92dp"-->
+        <!--android:background="@color/ap_transparent"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="296dp"-->
+        <!--android:id="@+id/line3"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginStart="248dp"-->
+        <!--android:layout_marginTop="92dp"-->
+        <!--android:background="@color/ap_transparent"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="296dp"-->
+        <!--android:id="@+id/line4"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginStart="305dp"-->
+        <!--android:layout_marginTop="92dp"-->
+        <!--android:background="@color/ap_transparent"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:text="4G-LTE"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/ap_gray"-->
+        <!--android:id="@+id/LTE"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginStart="160dp"-->
+        <!--android:layout_marginTop="150dp"-->
+        <!--android:textSize="20dp"-->
+        <!--android:textIsSelectable="true" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:text="3G-WCDMA"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/ap_gray"-->
+        <!--android:id="@+id/WCDMA"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginStart="160dp"-->
+        <!--android:layout_marginTop="304dp"-->
+        <!--android:textIsSelectable="true"-->
+        <!--android:textSize="20dp" />-->
+
+</RelativeLayout>

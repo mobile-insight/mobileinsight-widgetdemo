@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height= "match_parent"
+    android:padding="@dimen/widget_margin" android:background="#00000000">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView_NAS_MM"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/substate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Substate"
+        android:id="@+id/substate"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/updateState"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update State"
+        android:id="@+id/updateState"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/operationMode"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/operationMode"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/serviceType"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/serviceType"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:textSize="16sp" />
+
+</RelativeLayout>

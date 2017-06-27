@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="400dp"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="360dp"
+        android:minHeight="100dp"
+        android:id="@+id/listviewWrapper"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="#333333"
+                android:gravity="center"
+                android:id="@+id/text_title"
+                android:layout_weight = "0.2"
+                android:text="Protocol"
+                android:textColor = "#FFFFFF"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="#333333"
+                android:gravity="center"
+                android:id="@+id/text_content"
+                android:layout_weight = "0.8"
+                android:text="State"
+                android:textColor = "#FFFFFF"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="#555555"
+                android:gravity="center"
+                android:id="@+id/title1_1"
+                android:layout_weight = "0.1"
+                android:text=""
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:id="@+id/text_4G_EMM_title"
+                android:layout_weight = "0.1"
+                android:text="EMM"
+                android:textColor = "#000000"
+                android:textStyle="bold"
+                 />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:id="@+id/text_4G_EMM_content"
+                android:layout_weight = "0.8"
+                android:textColor = "#000000"
+                android:text="Hello"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="#555555"
+                android:gravity="center"
+                android:id="@+id/title1_2"
+                android:layout_weight = "0.1"
+                android:text="4G"
+                android:textStyle="bold"
+                android:textColor = "#FFFFFF"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background= "@drawable/textview_border"
+                android:gravity="center"
+                android:text="ESM"
+                android:textStyle="bold"
+                android:textColor = "#000000"
+                android:id="@+id/text_4G_ESM_title"
+                android:layout_weight = "0.1"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:id="@+id/text_4G_ESM_content"
+                android:layout_weight = "0.8"
+                android:text="Hello"
+                android:textColor = "#000000"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="#555555"
+                android:gravity="center"
+                android:id="@+id/title1_3"
+                android:layout_weight = "0.1"
+                android:text=""
+                android:textColor = "#FFFFFF"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:id="@+id/text_4G_RRC_title"
+                android:text="RRC"
+                android:textStyle="bold"
+                android:textColor = "#000000"
+                android:layout_weight = "0.1"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:layout_weight = "0.8"
+                android:id="@+id/text_4G_RRC_content"
+                android:text="Hello"
+                android:textColor = "#000000"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="#666666"
+                android:gravity="center"
+                android:id="@+id/title2_1"
+                android:layout_weight = "0.1"
+                android:text=""
+                android:textColor = "#FFFFFF"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:text="MM"
+                android:textStyle="bold"
+                android:textColor = "#000000"
+                android:id="@+id/text_3G_MM_title"
+                android:layout_weight = "0.1"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:layout_weight = "0.8"
+                android:textColor = "#000000"
+                android:id="@+id/text_3G_MM_content"
+                android:text="Hello"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="#666666"
+                android:gravity="center"
+                android:id="@+id/title2_2"
+                android:layout_weight = "0.1"
+                android:text="3G"
+                android:textStyle="bold"
+                android:textColor = "#FFFFFF"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:text="GMM"
+                android:textStyle="bold"
+                android:textColor = "#000000"
+                android:id="@+id/text_3G_GMM_title"
+                android:layout_weight = "0.1"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:layout_weight = "0.8"
+                android:textColor = "#000000"
+                android:id="@+id/text_3G_GMM_content"
+                android:text="Hello"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="#666666"
+                android:gravity="center"
+                android:id="@+id/title2_3"
+                android:layout_weight = "0.1"
+                android:text=""
+                android:textColor = "#FFFFFF"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:text="RRC"
+                android:textStyle="bold"
+                android:textColor = "#000000"
+                android:id="@+id/text_3G_RRC_title"
+                android:layout_weight = "0.1"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/textview_border"
+                android:gravity="center"
+                android:layout_weight = "0.8"
+                android:textColor = "#000000"
+                android:id="@+id/text_3G_RRC_content"
+                android:text="Hello"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>

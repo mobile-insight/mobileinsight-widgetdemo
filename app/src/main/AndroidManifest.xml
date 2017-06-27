@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.mobileinsight.widgetdemo" >
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="net.mobileinsight.widgetdemo.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="net.mobileinsight.widgetdemo.LtePhyWidget" android:label="LtePhyBW">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LtePhy.COUNTER_ACTION" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OfflineReplayer.STARTED" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OnlineMonitor.STARTED" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LtePhyAnalyzer.LTE_DL_BW" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_app_widget_info" />
+        </receiver>
+
+        <receiver android:name="net.mobileinsight.widgetdemo.WcdmaRrcStateWidget" android:label="WcdmaRrcState">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.WcdmaRrc.COUNTER_ACTION" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.WcdmaRrcAnalyzer.RRC_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OfflineReplayer.STARTED" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OnlineMonitor.STARTED" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/wcdma_rrc_state_widget_info"
+                android:label="WCDMA RRC State" />
+        </receiver>
+
+        <receiver android:name="net.mobileinsight.widgetdemo.LteRrcStateWidget" android:label="LteRrcState">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LteRrcAnalyzer.DRX" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LteRrc.COUNTER_ACTION" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OfflineReplayer.STARTED" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OnlineMonitor.STARTED" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/lte_rrc_state_widget_info"
+                android:label="LTE RRC State" />
+        </receiver>
+
+        <receiver android:name="net.mobileinsight.widgetdemo.MobilityGraphWidget" android:label="MobilityGraph">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.MobilityMngt.HANDOFF">
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.MobilityMngt.MEAS_CTRL">
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.MobilityMngt.MEAS_REPORT">
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.MobilityGraph.COUNTER_ACTION" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OfflineReplayer.STARTED">
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OnlineMonitor.STARTED" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/mobility_graph_widget_info" />
+        </receiver>
+
+
+        <receiver android:name="net.mobileinsight.widgetdemo.LteEmmStateWidget" android:label="LteEmmState">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LteNasAnalyzer.EMM_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LteEmm.COUNTER_ACTION" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OfflineReplayer.STARTED">
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OnlineMonitor.STARTED" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/lte_emm_state_widget_info"
+                android:label="LTE EMM State" />
+        </receiver>
+
+        <receiver android:name="net.mobileinsight.widgetdemo.LteEsmStateWidget" android:label="LteEsmState">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LteNasAnalyzer.ESM_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LteEsm.COUNTER_ACTION" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OfflineReplayer.STARTED">
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OnlineMonitor.STARTED" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/lte_esm_state_widget_info"
+                android:label="LTE ESM State" />
+        </receiver>
+
+        <receiver android:name="net.mobileinsight.widgetdemo.WcdmaMmStateWidget" android:label="WcdmaMmState">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.UmtsNasAnalyzer.MM_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.WcdmaMm.COUNTER_ACTION" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OfflineReplayer.STARTED">
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OnlineMonitor.STARTED" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/wcdma_mm_state_widget_info"
+                android:label="WCDMA MM State" />
+        </receiver>
+
+        <receiver android:name="net.mobileinsight.widgetdemo.WcdmaGmmStateWidget" android:label="WcdmaGmmState">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.UmtsNasAnalyzer.GMM_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.WcdmaGmm.COUNTER_ACTION" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OfflineReplayer.STARTED">
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OnlineMonitor.STARTED" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/wcdma_gmm_state_widget_info"
+                android:label="WCDMA GMM State" />
+        </receiver>
+
+        <receiver android:name="net.mobileinsight.widgetdemo.LteWcdmaTableWidget" android:label="LteWcdmaTable">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.Table.COUNTER_ACTION" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LteNasAnalyzer.EMM_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LteNasAnalyzer.ESM_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.UmtsNasAnalyzer.MM_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.UmtsNasAnalyzer.GMM_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.WcdmaRrcAnalyzer.RRC_STATE" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.LteRrcAnalyzer.DRX" >
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OfflineReplayer.STARTED">
+                </action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MobileInsight.OnlineMonitor.STARTED" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/lte_wcdma_table_widget_info"
+                android:label="LTE WCDMA Table" />
+        </receiver>
+
+    </application>
+
+</manifest>

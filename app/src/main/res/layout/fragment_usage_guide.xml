@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp"
+    android:background="#eeeeee">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical" >
+
+    <android.support.v7.widget.CardView
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="RtlHardcoded"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Steps:"
+                android:textAppearance="@style/TextAppearance.Header"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                style="@style/TextComponent.ItemRow"
+                />
+
+            <include layout="@layout/seperator_view"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Step 1: Press and hold any empty space on the home screen;"
+                style="@style/TextAppearance.ItemExample"
+                />
+
+            <include layout="@layout/seperator_view"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Step 2: Choose widgets and go to the list of MI_Widget_demo;"
+                style="@style/TextAppearance.ItemExample"
+                />
+
+            <include layout="@layout/seperator_view"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Step 3: Drag Android widgets to home screen;"
+                style="@style/TextAppearance.ItemExample"
+                />
+
+            <include layout="@layout/seperator_view"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Step 4: Run MobileInsight and corresponding demo plugin;"
+                style="@style/TextAppearance.ItemExample"
+                />
+
+            <include layout="@layout/seperator_view"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Step 5: Go back to home screen. The widget should update results."
+                style="@style/TextAppearance.ItemExample"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</RelativeLayout>

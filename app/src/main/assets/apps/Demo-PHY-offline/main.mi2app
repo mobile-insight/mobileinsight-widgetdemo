@@ -1,0 +1,33 @@
+#!/usr/bin/python
+# Filename: main.mi2app
+
+import os
+import sys
+import shutil
+import traceback
+
+import mi2app_utils
+from mobile_insight.monitor import OnlineMonitor, OfflineReplayer
+from mobile_insight.analyzer import LtePhyAnalyzer
+
+try:
+    cache_directory  = mi2app_utils.get_cache_dir()
+    log_directory    = os.path.join(cache_directory, "mi2log")
+    mi_directory = mi2app_utils.get_mobile_insight_path()
+
+
+
+    src = OfflineReplayer()
+    src.set_input_path(os.path.join(mi_directory,"demo/LtePhyBandwidth/LTE_PHY_sample.mi2log"))
+
+    lte_phy_analyzer = LtePhyAnalyzer()
+    lte_phy_analyzer.set_source(src)
+
+    src.run()
+
+except:
+    src.log_error(traceback.format_exc())
+
+# finally:
+    # mi2app_utils.detach_thread()
+    pass
