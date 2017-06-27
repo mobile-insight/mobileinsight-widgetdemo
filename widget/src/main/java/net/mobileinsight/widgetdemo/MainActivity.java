@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             String[] filePathList = am.list("plugins");
             for (String fileName : filePathList) {
-                copyFilesAssets(mContext, "plugins/" + fileName, Environment.getExternalStorageDirectory()+"/mobile_insight/plugins/"+fileName);
+                copyFilesAssets(mContext, "plugins/" + fileName, Environment.getExternalStorageDirectory()+"/mobileinsight/plugins/"+fileName);
                 Log.i("Copy", fileName);
             }
         } catch (Exception e) {
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             String[] filePathList = am.list("demo");
             for (String fileName : filePathList) {
-                copyFilesAssets(mContext, "demo/" + fileName, Environment.getExternalStorageDirectory()+"/mobile_insight/demo/"+fileName);
+                copyFilesAssets(mContext, "demo/" + fileName, Environment.getExternalStorageDirectory()+"/mobileinsight/demo/"+fileName);
                 Log.i("Copy", fileName);
             }
         } catch (Exception e) {
