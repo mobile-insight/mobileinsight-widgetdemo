@@ -21,7 +21,7 @@ from umts_nas_analyzer import UmtsNasAnalyzer
 try:
     cache_directory = mi2app_utils.get_cache_dir()
     log_directory = os.path.join(cache_directory, "mi2log")
-    mi_directory = mi2app_utils.get_mobile_insight_path()
+    mi_directory = mi2app_utils.get_mobileinsight_path()
 
     # src = OnlineMonitor()
     # src.set_skip_decoding(False)
