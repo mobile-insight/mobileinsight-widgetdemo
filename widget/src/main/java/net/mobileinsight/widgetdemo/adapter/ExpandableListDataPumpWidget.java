@@ -10,31 +10,31 @@ public class ExpandableListDataPumpWidget {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
         List<String> lte_emm_wdiget = new ArrayList<String>();
-        lte_emm_wdiget.add("Show state transition for LTE EMM");
+        lte_emm_wdiget.add("Show state transition for LTE EMM.");
 
         List<String> lte_esm_wdiget = new ArrayList<String>();
-        lte_esm_wdiget.add("Show state transition for LTE ESM");
+        lte_esm_wdiget.add("Show state transition for LTE ESM.");
 
         List<String> lte_phy_wdiget = new ArrayList<String>();
-        lte_phy_wdiget.add("Show physical bandwidth and coding scheme in last one second");
+        lte_phy_wdiget.add("Show physical bandwidth and coding scheme.");
 
         List<String> lte_rrc_wdiget = new ArrayList<String>();
-        lte_rrc_wdiget.add("Show state transition for LTE RRC");
+        lte_rrc_wdiget.add("Show state transition for LTE RRC.");
 
         List<String> table_wdiget = new ArrayList<String>();
-        table_wdiget.add("Show state transition in NAS and RRC for both LTE and WCDMA");
+        table_wdiget.add("Show state transition in NAS and RRC for both LTE and WCDMA, including LTE RRC, LTE EMM, LTE ESM, WCDMA RRC, WCDMA MM, WCDMA GMM.");
 
         List<String> mg_wdiget = new ArrayList<String>();
         mg_wdiget.add("Show mobility information, including handoff comands, mesuarement control information and measurement reports.");
 
         List<String> wcdma_gmm_wdiget = new ArrayList<String>();
-        wcdma_gmm_wdiget.add("Show state transition for WCDMA GMM");
+        wcdma_gmm_wdiget.add("Show state transition for WCDMA GMM.");
 
         List<String> wcdma_mm_wdiget = new ArrayList<String>();
-        wcdma_mm_wdiget.add("Show state transition for WCDMA MM");
+        wcdma_mm_wdiget.add("Show state transition for WCDMA MM.");
 
         List<String> wcdma_rrc_wdiget = new ArrayList<String>();
-        wcdma_rrc_wdiget.add("Show state transition for WCDMA RRC");
+        wcdma_rrc_wdiget.add("Show state transition for WCDMA RRC.");
 
         expandableListDetail.put("LteEmmState Widget", lte_emm_wdiget);
         expandableListDetail.put("LteEsmState Widget", lte_esm_wdiget);

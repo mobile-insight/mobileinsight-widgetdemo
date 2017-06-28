@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Steps:"
+                android:text="@string/step_title"
                 android:textAppearance="@style/TextAppearance.Header"
                 android:paddingRight="8dp"
                 android:paddingLeft="8dp"
@@ -43,8 +43,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1: Press and hold any empty space on the home screen."
+                android:text="@string/step1"
                 style="@style/TextAppearance.ItemExample"
+                android:id="@+id/step1"
+                />
+
+
+            <include layout="@layout/seperator_view"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/step2"
+                style="@style/TextAppearance.ItemExample"
+                android:id="@+id/step2"
                 />
 
             <include layout="@layout/seperator_view"/>
@@ -52,8 +64,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2: Choose widgets and go to the list of MI_Widget_demo."
+                android:text="@string/step3"
                 style="@style/TextAppearance.ItemExample"
+                android:id="@+id/step3"
                 />
 
             <include layout="@layout/seperator_view"/>
@@ -61,8 +74,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3: Drag Android widgets to home screen."
+                android:text="@string/step4"
                 style="@style/TextAppearance.ItemExample"
+                android:id="@+id/step4"
                 />
 
             <include layout="@layout/seperator_view"/>
@@ -70,16 +84,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4: Run MobileInsight and corresponding demo plugin."
-                style="@style/TextAppearance.ItemExample"
-                />
-
-            <include layout="@layout/seperator_view"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="5: Go back to home screen. The widget should update results."
+                android:text="@string/step5"
                 style="@style/TextAppearance.ItemExample"
                 />
         </LinearLayout>

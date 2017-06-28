@@ -233,6 +233,7 @@ public class MobilityGraphWidget extends AppWidgetProvider {
             plot.addSeries(Point_MEAS_REPORT, formatter_Point_MEAS_REPORT);
             plot.addSeries(series1, series1Format);
 
+            // set x axis labels
             plot.setDomainValueFormat(new Format() {
                 @Override
                 public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
@@ -261,6 +262,7 @@ public class MobilityGraphWidget extends AppWidgetProvider {
                                       }
             );
 
+            //set y labels
             plot.setRangeValueFormat(new Format() {
                 @Override
                 public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
@@ -479,7 +481,7 @@ public class MobilityGraphWidget extends AppWidgetProvider {
 
             System.arraycopy(Mngt_Type, 1, Mngt_Type, 0, Mngt_Type.length - 1);
             Mngt_Type[Mngt_Type.length - 1] = mtype;
-            Log.i("mtype", Mngt_Type[0]+","+Mngt_Type[1]+","+Mngt_Type[2]+","+Mngt_Type[3]);
+            Log.i(LOG_TAG, "Received msg0: "+msg0+", Receieved msg1: "+msg1+", Received mtype: "+mtype);
 
             switch (mtype) {
                 case "HANDOFF":

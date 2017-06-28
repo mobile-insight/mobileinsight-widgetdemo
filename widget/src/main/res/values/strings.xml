@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">MobileInsight Widget Demo</string>
-
+    <string name="step_title">Steps</string>
+    <string name="step1">1. Press and hold any empty space on the home screen to choose <i><b>Widgets</b></i>.</string>
+    <string name="step2">2. Selcet a widget from the <i><b>MI Widget</b></i> list and drag to the home screen.</string>
+    <string name="step3">3. Repeat <i>Step 2</i> if you want more widgets.</string>
+    <string name="step4">4. Run <i><b>MobileInsight</b></i> and the corresponding demo plugin (See <i><b>Widget Intro</b></i>).</string>
+    <string name="step5">5. Go back to the home screen. The widget will show results.</string>
     <string name="action_settings">Settings</string>
     <string name="appwidget_text">EXAMPLE</string>
 </resources>

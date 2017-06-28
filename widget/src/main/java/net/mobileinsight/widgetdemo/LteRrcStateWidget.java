@@ -315,6 +315,9 @@ public class LteRrcStateWidget extends AppWidgetProvider {
             int tx_id = -1;
 
             long time_inter = time_cur - time_last;
+            if (time_inter < 0){
+                time_inter = 0;
+            }
             time_all += time_inter;
 
             switch (lte_rrc_state){
