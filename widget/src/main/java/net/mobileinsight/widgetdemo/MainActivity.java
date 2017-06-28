@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Usage Guide"));
         tabLayout.addTab(tabLayout.newTab().setText("Widget Intro"));
-        tabLayout.addTab(tabLayout.newTab().setText("Plugin Intro"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Plugin Intro"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

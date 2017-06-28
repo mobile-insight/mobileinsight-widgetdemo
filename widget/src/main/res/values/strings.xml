@@ -1,11 +1,92 @@
 <resources>
     <string name="app_name">MobileInsight Widget Demo</string>
     <string name="step_title">Steps</string>
-    <string name="step1">1. Press and hold any empty space on the home screen to choose <i><b>Widgets</b></i>.</string>
-    <string name="step2">2. Selcet a widget from the <i><b>MI Widget</b></i> list and drag to the home screen.</string>
-    <string name="step3">3. Repeat <i>Step 2</i> if you want more widgets.</string>
-    <string name="step4">4. Run <i><b>MobileInsight</b></i> and the corresponding demo plugin (See <i><b>Widget Intro</b></i>).</string>
-    <string name="step5">5. Go back to the home screen. The widget will show results.</string>
+    <string name="step1"><![CDATA[1. Press and hold any empty space on the home screen to choose <i><b>Widgets</b></i>.]]></string>
+    <string name="step2"><![CDATA[2. Selcet a widget from the <i><b>MI Widget</b></i> list and drag to the home screen.]]></string>
+    <string name="step3"><![CDATA[3. Repeat <i>Step 2</i> if you want more widgets.]]></string>
+    <string name="step4"><![CDATA[4. Run <i><b>MobileInsight</b></i> and the corresponding demo plugin (See <i><b>Widget Intro</b></i>).]]></string>
+    <string name="step5"><![CDATA[5. Go back to the home screen. The widget will show results.]]></string>
+    <string name="info_title">Info</string>
+    <string name="info">
+        <![CDATA[
+        This app provides a set of widgets to visualize the runtime network information from MobileInsight.<br><br>
+        The code is hosted on GitHub (https://github.com/mobile-insight/mobileinsight-widgetdemo).<br><br>
+        &#169; Copyright 2014-2017, MobileInsight Team.
+        ]]>
+    </string>
+    <string name="lte_emm_widget_intro">
+        <![CDATA[
+        <p>Show state transitions for LTE EMM.</p>
+        <p>Corresponding pulgins:</p>
+        <p>Work with <b>NasAnalysis</b> to show live state transitions.</p>
+        <p>Work with <b>Demo-NAS-offline</b> to show state transitions in replayed log.</p>
+        ]]>
+    </string>
+    <string name="lte_esm_widget_intro">
+        <![CDATA[
+        <p>Show state transitions for LTE ESM.</p>
+        <p>Corresponding pulgins:</p>
+        <p>Work with <b>NasAnalysis</b> to show live state transitions.</p>
+        <p>Work with <b>Demo-NAS-offline</b> to show state transitions in replayed log.</p>
+        ]]>
+    </string>
+    <string name="lte_rrc_widget_intro">
+        <![CDATA[
+        <p>Show state transitions for LTE RRC.</p>
+        <p>Corresponding pulgins:</p>
+        <p>Work with <b>RrcAnalysis</b> to show live state transitions.</p>
+        <p>Work with <b>Demo-RRC-4G-offline</b> to show state transitions in replayed log.</p>
+        ]]>
+    </string>
+    <string name="wcdma_mm_widget_intro">
+        <![CDATA[
+        <p>Show state transitions for WCDMA MM.</p>
+        <p>Corresponding pulgins:</p>
+        <p>Work with <b>NasAnalysis</b> to show live state transitions.</p>
+        <p>Work with <b>Demo-NAS-offline</b> to show state transitions in replayed log.</p>
+        ]]>
+    </string>
+    Demo-Mobilgraph-offline
+    <string name="wcdma_gmm_widget_intro">
+        <![CDATA[
+        <p>Show state transitions for WCDMA GMM.</p>
+        <p>Corresponding pulgins:</p>
+        <p>Work with <b>NasAnalysis</b> to show live state transitions.</p>
+        <p>Work with <b>Demo-NAS-offline</b> to show state transitions in replayed log.</p>
+        ]]>
+    </string>
+    <string name="wcdma_rrc_widget_intro">
+        <![CDATA[
+        <p>Show state transitions for WCDMA RRC.</p>
+        <p>Corresponding pulgins:</p>
+        <p>Work with <b>RrcAnalysis</b> to show live state transitions.</p>
+        <p>Work with <b>Demo-RRC-3G-offline</b> to show state transitions in replayed log.</p>
+        ]]>
+    </string>
+    <string name="table_widget_intro">
+        <![CDATA[
+        <p>Show state transitions in NAS and RRC for both LTE and WCDMA, including LTE RRC, LTE EMM, LTE ESM, WCDMA RRC, WCDMA MM, WCDMA GMM.</p>
+        <p>Corresponding pulgins:</p>
+        <p>Work with <b>NasAnalysis</b> or <b>RrcAnalysis</b> to show live state transitions.</p>
+        <p>Work with <b>Demo-NAS-offline</b> to show state transitions in replayed log.</p>
+        ]]>
+    </string>
+    <string name="mg_widget_intro">
+        <![CDATA[
+        <p>Show mobility information, including handoff comands, measurement control information and measurement reports.</p>
+        <p>Corresponding pulgins:</p>
+        <p>Work with <b>Demo-Mobilgraph-online</b> to show live mobility information.</p>
+        <p>Work with <b>Demo-Mobilgraph-offline</b> to show statistics in replayed log.</p>
+        ]]>
+    </string>
+    <string name="phy_widget_intro">
+        <![CDATA[
+        <p>Show LTE bandwidth and modulation scheme for both uplink and downlink physical channel.</p>
+        <p>Corresponding pulgins:</p>
+        <p>Work with <b>Demo-PHY-online</b> to show live physical bandwidth.</p>
+        <p>Work with <b>Demo-PHY-offline</b> to show statistics in replayed log.</p>
+        ]]>
+    </string>
     <string name="action_settings">Settings</string>
     <string name="appwidget_text">EXAMPLE</string>
 </resources>

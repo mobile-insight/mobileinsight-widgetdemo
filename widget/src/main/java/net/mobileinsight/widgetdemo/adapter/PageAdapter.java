@@ -3,7 +3,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import net.mobileinsight.widgetdemo.PluginIntroFragment;
 import net.mobileinsight.widgetdemo.UsageGuideFragment;
 import net.mobileinsight.widgetdemo.WidgetIntroFragment;
 
@@ -25,9 +24,9 @@ public class PageAdapter extends FragmentStatePagerAdapter {
 			case 1:
 				WidgetIntroFragment tab2 = new WidgetIntroFragment();
 				return tab2;
-			case 2:
-				PluginIntroFragment tab3 = new PluginIntroFragment();
-				return tab3;
+//			case 2:
+//				PluginIntroFragment tab3 = new PluginIntroFragment();
+//				return tab3;
 			default:
 				return null;
 		}

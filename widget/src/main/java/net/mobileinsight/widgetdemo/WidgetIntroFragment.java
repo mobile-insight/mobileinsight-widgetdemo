@@ -6,6 +6,7 @@ package net.mobileinsight.widgetdemo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import net.mobileinsight.widgetdemo.adapter.ExpandableListDataPumpWidget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class WidgetIntroFragment extends Fragment {
@@ -25,7 +27,7 @@ public class WidgetIntroFragment extends Fragment {
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
+    LinkedHashMap<String, List<Spanned>> expandableListDetail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +36,7 @@ public class WidgetIntroFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_widget_intro, container, false);
 
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
-        expandableListDetail = ExpandableListDataPumpWidget.getData();
+        expandableListDetail = ExpandableListDataPumpWidget.getData(getContext());
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);

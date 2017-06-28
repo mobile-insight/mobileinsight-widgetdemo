@@ -24,14 +24,15 @@
     <style name="TextComponent.ItemRow">
         <item name="android:gravity">center_vertical</item>
         <item name="android:minHeight">48dp</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="TextComponent.ItemRow.Selectable">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:clickable">true</item>
-        <item name="android:paddingLeft">8dp</item>
+    <style name="TextAppearance.InfoStyle">
+        <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:lineSpacingExtra">3dp</item>
     </style>
 
     <style name="TextAppearance" parent="TextAppearance.AppCompat"/>
@@ -43,12 +44,12 @@
 
     <style name="TextAppearance.ItemExample">
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">#5f5f5f</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
         <item name="android:lineSpacingExtra">5dp</item>
     </style>
 </resources>
