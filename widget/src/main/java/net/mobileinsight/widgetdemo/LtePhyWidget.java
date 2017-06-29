@@ -131,7 +131,7 @@ public class LtePhyWidget extends AppWidgetProvider {
                 rv.setTextViewText(R.id.textView1, String.valueOf(number).concat(" Mbps"));
                 rv.setTextColor(R.id.textView1, Color.WHITE);
 
-                rv.setTextViewText(R.id.textView2, "Modulation:".concat(modulation0));
+                rv.setTextViewText(R.id.textView2, "Current modulation:".concat(modulation0));
                 float qpsk = Float.parseFloat(statistics_qpsk);
                 float qam16 = Float.parseFloat(statistics_16qam);
                 float qam64 = Float.parseFloat(statistics_64qam);
@@ -146,9 +146,9 @@ public class LtePhyWidget extends AppWidgetProvider {
                     qam16 = 0;
                     qam64 = 0;
                 }
-                rv.setTextViewText(R.id.textView3,"QPSK: "+String.format("%.2f",qpsk)+"%");
-                rv.setTextViewText(R.id.textView4,"16QAM: "+String.format("%.2f",qam16)+"%");
-                rv.setTextViewText(R.id.textView5,"64QAM: "+String.format("%.2f",qam64)+"%");
+                rv.setTextViewText(R.id.textView3,"QPSK (% in last 1s): "+String.format("%.2f",qpsk)+"%");
+                rv.setTextViewText(R.id.textView4,"16QAM (% in last 1s): "+String.format("%.2f",qam16)+"%");
+                rv.setTextViewText(R.id.textView5,"64QAM (% in last 1s): "+String.format("%.2f",qam64)+"%");
 
                 rv.setBitmap(R.id.imageView, "setImageBitmap", bmp);
 

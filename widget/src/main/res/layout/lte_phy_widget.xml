@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin" android:background="#00000000"
+    android:padding="@dimen/widget_margin"
     android:orientation= "vertical">
 
 
@@ -18,25 +18,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LTE DL Capacity"
         android:id="@+id/textView1"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="110dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:textSize="20sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="69dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Modulation: "
         android:id="@+id/textView2"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:layout_marginLeft="20dp"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/textView3"
         android:layout_alignParentLeft="true" />
@@ -44,17 +36,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_marginLeft="20dp"
+        android:layout_above="@+id/textView4"
+        android:textSize="18sp"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/textView4"
-        android:textSize="20sp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="33dp" />
+        android:textSize="18sp"
+        android:layout_marginLeft="20dp"
+        android:layout_above="@+id/textView5"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView5"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:layout_marginLeft="20dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 
