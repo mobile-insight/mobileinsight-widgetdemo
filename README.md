@@ -8,12 +8,18 @@ This repository includes the codes to build MobileInsight widget demo version. I
 After installing [MobileInsight Widget Demo](https://github.com/mobile-insight/mobileinsight-widgetdemo/releases) and [MobileInsight Mobile](https://github.com/mobile-insight/mobileinsight-mobile/releases) on your Android phone, follow the following steps to use the application:
 
 1. Press and hold any empty space on the home screen to choose **Widgets**.
-2. Selcet a widget from the **MI Widget** list and drag to the home screen.
+2. Select a widget from the **MI Widget** list and drag to the home screen.
 3. Repeat **Step 2** if you want more widgets.
 4. Run **MobileInsight** and the corresponding demo plugin (See **Widget Intro**).
 5. Go back to the home screen. The widget will show results.
 
 Refer to the main page of **MI Widget** application for more information.
+
+## How to compile
+
+This repo is an [Android Studio](https://developer.android.com/studio/index.html) project. You can directly import the project after installing Android Studio. After importing the project, you can modify codes and build your own application.
+
+This project is based on 'constraint-layout:1.0.2', which can be installed by Android Studio.
 
 ## How to Contribute
 
