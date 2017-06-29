@@ -189,6 +189,7 @@ public class WcdmaMmStateWidget extends AppWidgetProvider {
                     running = true;
                 } else {
                     running = false;
+                    isonline = true;
                     if (task != null) {
                         task.cancel(true);
                     }

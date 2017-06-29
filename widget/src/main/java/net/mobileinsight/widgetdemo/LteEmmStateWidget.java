@@ -189,6 +189,7 @@ public class LteEmmStateWidget extends AppWidgetProvider {
 
             }
             else{
+                isonline = true;
                 running = false;
                 if (task != null) {
                     task.cancel(true);

@@ -195,7 +195,7 @@ public class WcdmaRrcStateWidget extends AppWidgetProvider {
 
             String state_tmp = intent.getStringExtra("RRC State");
             String time_tmp = intent.getStringExtra("Timestamp");
-            Log.i("WcdmaRrcStateWidget", state_tmp);
+            Log.i(LOG_TAG, "Received state: " + state_tmp);
 
             if (!isonline) {
 
@@ -229,10 +229,11 @@ public class WcdmaRrcStateWidget extends AppWidgetProvider {
                 running = true;
             }
             else{
+                isonline = true;
                 if (task != null) {
-                    running = false;
                     task.cancel(true);
                 }
+                running = false;
             }
             wcdma_rrc_state = ""; //to receive state
             next_state = ""; // next state to show in the figure

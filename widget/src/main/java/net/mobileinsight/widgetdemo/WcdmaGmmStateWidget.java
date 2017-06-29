@@ -152,6 +152,8 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
 
             if (appWidgetIds != null && appWidgetIds.length > 0 && intent.getAction().equals("MobileInsight.UmtsNasAnalyzer.GMM_STATE")) {
 
+                Log.i(LOG_TAG, "started " + intent.getAction());
+
                 String state_tmp = intent.getStringExtra("conn state");
 
                 String substate_tmp = intent.getStringExtra("conn substate");
@@ -160,7 +162,7 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
 
                 if (!isonline) {
                     String time_tmp = intent.getStringExtra("timestamp");
-                    Log.d(LOG_TAG, "WcdmaGmmStateWidget" + "New broadcast message received ".concat(time_tmp));
+//                    Log.d(LOG_TAG, "WcdmaGmmStateWidget" + "New broadcast message received ".concat(time_tmp));
                     if (state_tmp != null & substate_tmp != null & time_tmp != null) {
                         state_lst.offer(state_tmp + "\t" + substate_tmp);
                         Log.i(LOG_TAG, String.valueOf(time_lst.size()));
@@ -189,6 +191,7 @@ public class WcdmaGmmStateWidget extends AppWidgetProvider {
                     running = true;
                     Log.i(LOG_TAG, "started " + String.valueOf(task));
                 } else {
+                    isonline = true;
                     running = false;
                     if (task != null) {
                         task.cancel(true);

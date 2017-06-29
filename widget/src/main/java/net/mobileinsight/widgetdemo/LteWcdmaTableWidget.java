@@ -183,6 +183,7 @@ public class LteWcdmaTableWidget extends AppWidgetProvider {
                     task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     running = true;
                 } else {
+                    isonline = true;
                     running = false;
                     if (task != null) {
                         task.cancel(true);

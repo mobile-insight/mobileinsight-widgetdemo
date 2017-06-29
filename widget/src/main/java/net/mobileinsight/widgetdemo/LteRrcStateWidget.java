@@ -262,6 +262,7 @@ public class LteRrcStateWidget extends AppWidgetProvider {
 
             }
             else{
+                isonline = true;
                 running = false;
                 if (task != null) {
                     task.cancel(true);
