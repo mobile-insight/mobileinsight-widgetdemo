@@ -19,7 +19,7 @@ Refer to the main page of **MI Widget** application for more information.
 
 This repo is an [Android Studio](https://developer.android.com/studio/index.html) project. You can directly import the project after installing Android Studio. After importing the project, you can modify codes and build your own application.
 
-This project is based on 'constraint-layout:1.0.2', which can be installed by Android Studio.
+This project builds on 'constraint-layout:1.0.2', which can be installed by Android Studio.
 
 ## How to Contribute
 
