@@ -1,7 +1,7 @@
 MobileInsight Widget Demo Version
 ==============
 
-This repository includes the codes to build MobileInsight widget demo version. It provides a set of Android widgets to visualize the runtime network information.
+This repository includes the codes to build MobileInsight widget demo version. It provides a set of Android widgets to visualize the runtime network information from [MobileInsight Mobile](https://github.com/mobile-insight/mobileinsight-mobile/releases).
 
 ## Usage
 
@@ -17,7 +17,7 @@ Refer to the main page of **MI Widget** application for more information.
 
 ## How to Contribute
 
-We love to pull requests and discussing novel ideas. You can open issues here to report bugs. Feel free to improve MobileInsight and become a collaborator if you are interested.
+We love pull requests and discussing novel ideas. You can open issues here to report bugs. Feel free to improve MobileInsight and become a collaborator if you are interested.
 
 The following Slack group is used exclusively for discussions about developing the MobileInsight and its sister projects:
 
