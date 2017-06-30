@@ -46,6 +46,9 @@ public class UsageGuideFragment extends Fragment {
             tv_info.setText(Html.fromHtml(getString(R.string.info)));
         }
 
+        tv_info.setMovementMethod(LinkMovementMethod.getInstance());
+
+
         return rootView;
     }
 }

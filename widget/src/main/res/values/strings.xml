@@ -2,7 +2,7 @@
     <string name="app_name">MobileInsight Widget Demo</string>
     <string name="step_title">Steps</string>
     <string name="step1"><![CDATA[1. Press and hold any empty space on the home screen to choose <i><b>Widgets</b></i>.]]></string>
-    <string name="step2"><![CDATA[2. Selcet a widget from the <i><b>MI Widget</b></i> list and drag to the home screen.]]></string>
+    <string name="step2"><![CDATA[2. Select a widget from the <i><b>MI Widget</b></i> list and drag to the home screen.]]></string>
     <string name="step3"><![CDATA[3. Repeat <i>Step 2</i> if you want more widgets.]]></string>
     <string name="step4"><![CDATA[4. Run <i><b>MobileInsight</b></i> and the corresponding demo plugin (See <i><b>Widget Intro</b></i>).]]></string>
     <string name="step5"><![CDATA[5. Go back to the home screen. The widget will show results.]]></string>
@@ -10,7 +10,7 @@
     <string name="info">
         <![CDATA[
         This app provides a set of widgets to visualize the runtime network information from MobileInsight.<br><br>
-        The code is hosted on GitHub (https://github.com/mobile-insight/mobileinsight-widgetdemo).<br><br>
+        The code is hosted on GitHub (<a href="https://github.com/mobile-insight/mobileinsight-widgetdemo">https://github.com/mobile-insight/mobileinsight-widgetdemo</a>).<br><br>
         &#169; Copyright 2014-2017, MobileInsight Team.
         ]]>
     </string>
